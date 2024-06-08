@@ -16,7 +16,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            background: #f5f5f5;
+            background: var(--background-color, #f5f5f5);
+            color: var(--text-color, #000);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Header and navigation */
@@ -131,6 +133,52 @@
             padding: 20px;
         }
 
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: var(--background-color, #333);
+            color: var(--text-color, #fff);
+        }
+
+        .bottom-nav a {
+            color: var(--text-color, #fff);
+            text-decoration: none;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .bottom-nav .material-icons {
+            margin-right: 5px;
+        }
+
+        /* Theme buttons */
+        .theme-buttons {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .theme-buttons button {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .theme-buttons button:hover {
+            background: #f0f0f0;
+        }
+
         /* Animations */
         @keyframes fadeInDown {
             from {
@@ -153,6 +201,18 @@
                 transform: translateY(0);
             }
         }
+
+        /* Dark Theme */
+        body.dark {
+            --background-color: #333;
+            --text-color: #fff;
+        }
+
+        /* Light Theme */
+        body.light {
+            --background-color: #f5f5f5;
+            --text-color: #000;
+        }
     </style>
 </head>
 <body>
@@ -165,6 +225,11 @@
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
+        <div class="theme-buttons">
+            <button id="lightTheme">Light</button>
+            <button id="darkTheme">Dark</button>
+            <button id="autoTheme">Auto</button>
+        </div>
     </header>
 
     <section id="hero" class="hero-section">
@@ -205,6 +270,12 @@
         <p>&copy; 2024 My Portfolio</p>
     </footer>
 
+    <nav class="bottom-nav">
+        <a href="#"><span class="material-icons">home</span> Apple</a>
+        <a href="#"><span class="material-icons">developer_mode</span> Developer</a>
+        <a href="#"><span class="material-icons">brush</span> Design</a>
+    </nav>
+
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('.nav-link').forEach(anchor => {
@@ -215,6 +286,25 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Theme switcher
+        const lightThemeButton = document.getElementById('lightTheme');
+        const darkThemeButton = document.getElementById('darkTheme');
+        const autoThemeButton = document.getElementById('autoTheme');
+
+        lightThemeButton.addEventListener('click', () => {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+        });
+
+        darkThemeButton.addEventListener('click', () => {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+        });
+
+        autoThemeButton.addEventListener('click', () => {
+            document.body.classList.remove('light', 'dark');
         });
     </script>
 </body>
